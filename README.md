@@ -2,6 +2,8 @@
 
 An high-precision command-line calculator. 
 
+It will replace all input number to decimal to calculate more precisely than float, which is very helpful in calculate uint256 and decimals on ethereum.
+
 ## install 
 
 ```bash
@@ -26,6 +28,12 @@ uv run main.py
 # or
 
 python main.py
+```
+
+If you want to change precision, use parameter -p
+
+```bash
+python main.py -p 50
 ```
 
 Then enter a mathematical expression calculate, 
@@ -64,3 +72,4 @@ $ > b**3
 8
 $ > 
 ```
+
