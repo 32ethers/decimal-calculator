@@ -31,9 +31,13 @@ def replace_var(input_str: str) -> str:
     return replaced
 
 
-def process_and_calc(input_str: str):
+def ensure_input_safe(input_str: str):
     if re.match(r"\s*import\s+", input_str):
         raise RuntimeError("Import is not supported")
+
+
+def process_and_calc(input_str: str):
+    ensure_input_safe(input_str)
     if process_set_var(input_str):
         return ""
     modified_str = input_str

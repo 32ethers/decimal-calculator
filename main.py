@@ -7,11 +7,11 @@ from input_decoder import process_and_calc
 
 if __name__ == '__main__':
     session = PromptSession('$ > ')
-    parser = argparse.ArgumentParser(description="imput parameters")
-    parser.add_argument('-p', '--precision', type=int, default=100, help='The precision of Decimal')
+    parser = argparse.ArgumentParser(description="input parameters")
+    parser.add_argument('-p', '--precision', type=int, default=30, help='The precision of Decimal')
     args = parser.parse_args()
     getcontext().prec = int(args.precision)
-    print("An high-precision command-line calculator. Please enter a mathematical expression.")
+    print("An high-precision command-line calculator. Please enter a mathematical expression. Press ctrl+c to exit.")
     while True:
         try:
             user_input = session.prompt()
