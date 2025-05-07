@@ -31,6 +31,21 @@ class CalcTest(unittest.TestCase):
         self.assertEqual(calc_vars["a"], Decimal("5"))
         self.assertEqual(calc_vars["b"], Decimal("6"))
 
+    def test_decode_set_complex_var(self):
+        process_set_var("f=10**30")
+        self.assertEqual(calc_vars["f"], Decimal(10) ** Decimal(30))
+        process_set_var("a=25.sqrt()")
+        self.assertEqual(calc_vars["a"], Decimal(5))
+        process_set_var("m=25.sqrt(), n=10**2")
+        self.assertEqual(calc_vars["m"], Decimal(5))
+        self.assertEqual(calc_vars["n"], Decimal(100))
+
+    def test_calc_with_complex_var(self):
+        process_set_var("a=10**30")
+        process_set_var("b=1000")
+        self.assertEqual(Decimal("1000000000000000000000000001000"), process_and_calc("a+b"))
+        self.assertEqual(Decimal("100"), process_and_calc("a/10**28"))
+
     def test_decode_set_var_numeric_name(self):
         try:
             process_set_var("33 = 5")
