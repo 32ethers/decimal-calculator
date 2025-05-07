@@ -5,16 +5,14 @@ calc_vars = {}
 
 
 def process_set_var(input_str: str) -> bool:
-    # set_var_pattern = r"(\w+)\s*=\s*([+-]?(?:\d+\.\d+|\d+|\.\d+))"
+    # set_var_pattern = r"(\w+)\s*=\s*([+-]?(?:\d+\.\d+|\d+|\.\d+))" # just allow number
     set_var_pattern = r"(\w+)\s*=\s*([^,]+)"
     if re.match(set_var_pattern, input_str):
         find_results = re.findall(set_var_pattern, input_str)
         for find_result in find_results:
             if re.match(r"^\d+$", find_result[0]):
                 raise RuntimeError("Various name can not be numeric")
-            pattern = r'(?:\d+\.\d+|\d+|\.\d+)'
-            modified_str = re.sub(pattern, r'Decimal("\g<0>")', find_result[1])
-            calc_vars[find_result[0]] = eval(modified_str)
+            calc_vars[find_result[0]] = convert_to_decimal_and_execute( find_result[1])
             print(f"{find_result[0]} = {calc_vars[find_result[0]]}")
         return True
     else:
@@ -39,8 +37,16 @@ def ensure_input_safe(input_str: str):
         raise RuntimeError("Import is not supported")
 
 
-def process_and_calc(input_str: str):
+def convert_to_decimal_and_execute(input_str: str):
     ensure_input_safe(input_str)
+    pattern = r'(?:\d+\.\d+|\d+|\.\d+)'
+    modified_str = re.sub(pattern, r'Decimal("\g<0>")', input_str)
+    # print("Decoded: ", modified_str)
+    result = eval(modified_str)
+    return result
+
+
+def process_and_calc(input_str: str):
     if process_set_var(input_str):
         return ""
     modified_str = input_str
@@ -48,9 +54,5 @@ def process_and_calc(input_str: str):
         result_pattern = r'(?<![a-zA-Z0-9])_(?![a-zA-Z0-9])'
         modified_str = re.sub(result_pattern, lambda x: format(calc_vars["_"], 'f'), modified_str)
     modified_str = replace_var(modified_str)
-    pattern = r'(?:\d+\.\d+|\d+|\.\d+)'
-    modified_str = re.sub(pattern, r'Decimal("\g<0>")', modified_str)
-    # print("Decoded: ", modified_str)
-    result = eval(modified_str)
-    calc_vars["_"] = result
-    return result
+    calc_vars["_"] = convert_to_decimal_and_execute(modified_str)
+    return calc_vars["_"]

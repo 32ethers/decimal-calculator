@@ -57,17 +57,17 @@ $ > _ + 3
 10
 ```
 
-Various is also supported
+Various is also supported, you can set multiple various, and separate with comma.
 
 ```
-$ > a = 6, b = 2
+$ > a = 6, b = 2 * 2
 a = 6
-b = 2
+b = 4
 
 $ > a + b
-8
+10
 $ > b**3
-8
+64
 ```
 
 Since number is converted to Decimal, so functions of Decimal class can be called
