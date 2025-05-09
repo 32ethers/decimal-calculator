@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from input_decoder import process_and_calc, calc_vars, process_set_var
+from decimal_calculator.utils import process_and_calc, calc_vars, process_set_var
 
 
 class CalcTest(unittest.TestCase):
