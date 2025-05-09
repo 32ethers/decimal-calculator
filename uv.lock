@@ -1,11 +1,11 @@
 version = 1
 revision = 2
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 
 [[package]]
-name = "decimal-calculator"
+name = "decimal_calculator"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "prompt-toolkit" },
 ]

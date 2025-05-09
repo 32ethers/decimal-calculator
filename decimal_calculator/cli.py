@@ -3,11 +3,11 @@ from decimal import getcontext
 
 from prompt_toolkit import PromptSession
 
-from input_decoder import process_and_calc
+from utils import process_and_calc
 
-ctrl_c_counter = 0
 
-if __name__ == '__main__':
+def main():
+    ctrl_c_counter = 0
     session = PromptSession('$ > ')
     parser = argparse.ArgumentParser(description="input parameters")
     parser.add_argument('-p', '--precision', type=int, default=30, help='The precision of Decimal')
@@ -30,3 +30,6 @@ if __name__ == '__main__':
             print("Error!", e)
 
     print("exit")
+
+if __name__ == '__main__':
+    main()

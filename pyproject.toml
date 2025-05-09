@@ -1,8 +1,18 @@
 [project]
 name = "decimal-calculator"
 version = "0.1.0"
-description = "Add your description here"
-requires-python = ">=3.12"
+description = "An high-precision command-line calculator. "
+authors = [{ name="32ethers", email="somereason@gmail.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
 dependencies = [
     "prompt-toolkit>=3.0.51",
 ]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+yourcli = "decimal_calculator.cli:main"
